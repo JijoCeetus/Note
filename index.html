@@ -1,0 +1,187 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <style type="text/css" media="screen,print">
+        .select {
+            background-color: #CCCCCC;
+            border-width: 1px;
+            font-family: Calibri,Verdana, Tahoma;
+            margin: 0;
+            font-size: 10px;
+        }
+    </style>
+    <script type="text/javascript">
+        function Set() {
+            getIFrameDocument("textEditor").designMode = "On";
+            getIFrameDocument("textEditor").focus();
+        }
+
+        function getIFrameDocument(editor) {
+            // If Fire fox Mozilla
+            if (document.getElementById(editor).contentDocument) {
+                return document.getElementById(editor).contentDocument;
+            }
+                // If Internet Explorer
+            else {
+                // IE
+                return document.frames[editor].document;
+            }
+        }
+    </script>
+    <script type="text/javascript">
+        var isDesignMode = true;
+        function fontEdit(command, y) {
+            switch (command) {
+                case 'bold':
+                    if (document.getElementById('bold').src.toString().indexOf("over") != -1) {
+                        document.getElementById('bold').src = "images/bold.gif";
+                    }
+                    else {
+                        document.getElementById('bold').src = "images/bold.over.gif";
+                    }
+                    break;
+                case 'italic':
+                    if (document.getElementById('italic').src.toString().indexOf('over') != -1)
+                        document.getElementById('italic').src = 'images/italic.gif';
+                    else
+                        document.getElementById('italic').src = 'images/italic.over.gif';
+                    break;
+                case 'underline':
+                    if (document.getElementById('underline').src.toString().indexOf('over') != -1)
+                        document.getElementById('underline').src = 'images/underline.gif';
+                    else
+                        document.getElementById('underline').src = 'images/underline.over.gif';
+                    break;
+                case 'justifyleft':
+                    if (document.getElementById('justifyleft').src.toString().indexOf('over') != -1)
+                        document.getElementById('justifyleft').src = 'images/justifyleft.gif';
+                    else
+                        document.getElementById('justifyleft').src = 'images/justifyleft.over.gif';
+                    break;
+                case 'justifycenter':
+                    if (document.getElementById('justifycenter').src.toString().indexOf('over') != -1)
+                        document.getElementById('justifycenter').src = 'images/justifycenter.gif';
+                    else
+                        document.getElementById('justifycenter').src = 'images/justifycenter.over.gif';
+                    break;
+                case 'justifyright':
+                    if (document.getElementById('justifyright').src.toString().indexOf('over') != -1)
+                        document.getElementById('justifyright').src = 'images/justifyright.gif';
+                    else
+                        document.getElementById('justifyright').src = 'images/justifyright.over.gif';
+                    break;
+                case 'insertorderedlist':
+                    if (document.getElementById('insertorderedlist').src.toString().indexOf('over') != -1)
+                        document.getElementById('insertorderedlist').src = 'images/numberedlist.gif';
+                    else
+                        document.getElementById('insertorderedlist').src = 'images/numberedlist.over.gif';
+                    break;
+                case 'insertunorderedlist':
+                    if (document.getElementById('insertunorderedlist').src.toString().indexOf('over') != -1)
+                        document.getElementById('insertunorderedlist').src = 'images/bulletedlist.gif';
+                    else
+                        document.getElementById('insertunorderedlist').src = 'images/bulletedlist.over.gif';
+                    break;
+                case 'outdent':
+                    if (document.getElementById('outdent').src.toString().indexOf('over') != -1)
+                        document.getElementById('outdent').src = 'images/outdent.gif';
+                    else
+                        document.getElementById('outdent').src = 'images/outdent.over.gif';
+                    break;
+                case 'indent':
+                    if (document.getElementById('indent').src.toString().indexOf('over') != -1)
+                        document.getElementById('indent').src = 'images/indent.gif';
+                    else
+                        document.getElementById('indent').src = 'images/indent.over.gif';
+                    break;
+                case 'default':
+                    break;
+            }
+            getIFrameDocument("textEditor").execCommand(command, "", y);
+            textEditor.focus();
+        }
+
+        function ChangeMode() {
+            if (isDesignMode == true) {
+                isDesignMode = false;
+                document.getElementById('mode').src = 'images/mode.html.gif';
+                document.getElementById('mode').title = 'HTML View';
+                Encoder.EncodeType = "entity";
+                var encoded = Encoder.htmlEncode(getIFrameDocument("textEditor").body.innerHTML);
+                getIFrameDocument("textEditor").body.innerHTML = encoded;
+            }
+            else {
+                isDesignMode = true;
+                document.getElementById('mode').src = 'images/mode.design.gif';
+                document.getElementById('mode').title = 'Design View';
+                var decoded = Encoder.htmlDecode(getIFrameDocument("textEditor").body.innerHTML);
+                getIFrameDocument("textEditor").body.innerHTML = decoded;
+            }
+        }
+    </script>
+    <title></title>
+</head>
+<body onload="Set()">
+
+    <div style="background-color: #CCCCCC; width: 500px;">
+        <a onclick="javascript:fontEdit('bold')">
+            <img id="bold" src="images/bold.gif" alt="Bold" title="Bold" style="height: 20px; width: 21px; border: none;" />
+        </a><a onclick="javascript:fontEdit('italic')">
+            <img id="italic" src="images/italic.gif" alt="" title="Italic" style="height: 20px; width: 21px; border: none;" />
+        </a><a onclick="javascript:fontEdit('underline')">
+            <img id="underline" src="images/underline.gif" alt="" title="Underline" style="height: 20px; width: 21px; border: none;" />
+        </a>
+        <img id="sep1" src="images/sep.gif" alt="" style="height: 16px; width: 1px; border: none;" />
+        <a onclick="javascript:fontEdit('justifyleft')">
+            <img id="justifyleft" src="images/justifyleft.gif" alt="" title="Justify Left" style="height: 20px; width: 21px; border: none;" />
+        </a><a onclick="javascript:fontEdit('justifycenter')">
+            <img id="justifycenter" src="images/justifycenter.gif" alt="" title="Justify Center" style="height: 20px; width: 21px; border: none;" />
+        </a><a onclick="javascript:fontEdit('justifyright')">
+            <img id="justifyright" src="images/justifyright.gif" alt="" title="Justify Right" style="height: 20px; width: 21px; border: none;" />
+        </a>
+        <img id="sep2" src="images/sep.gif" alt="" style="height: 16px; width: 1px; border: none;" />
+        <a onclick="javascript:fontEdit('insertorderedlist')">
+            <img id="insertorderedlist" src="images/numberedlist.gif" alt="" title="Order List" style="height: 20px; width: 21px; border: none;" />
+        </a><a onclick="javascript:fontEdit('insertunorderedlist')">
+            <img id="insertunorderedlist" src="images/bulletedlist.gif" alt="" title="Bullets List" style="height: 20px; width: 21px; border: none;" />
+        </a><a onclick="javascript:fontEdit('outdent')">
+            <img id="outdent" src="images/outdent.gif" alt="" title="Outdent" style="height: 20px; width: 21px; border: none;" />
+        </a><a onclick="javascript:fontEdit('indent')">
+            <img id="indent" src="images/indent.gif" alt="" title="Indent" style="height: 20px; width: 21px; border: none;" />
+        </a><a onclick="ChangeMode()">
+            <img id="mode" src="images/mode.design.gif" alt="" title="Design View" style="height: 20px; width: 21px; border: none;" />
+        </a>
+    </div>
+    <div style="background-color: #CCCCCC; width: 497px; padding-left: 3px;">
+        <select id="fonts" class="select" onchange="fontEdit('fontname',this[this.selectedIndex].value)">
+            <option value="Arial">Font</option>
+            <option value="Arial">Arial</option>
+            <option value="Courier New">Courier New</option>
+            <option value="Monotype Corsiva">Monotype</option>
+            <option value="Tahoma">Tahoma</option>
+            <option value="Times">Times</option>
+        </select>
+        <select id="size" class="select" onchange="fontEdit('fontsize',this[this.selectedIndex].value)">
+            <option value="0">Size</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
+        <select id="color" class="select" onchange="fontEdit('ForeColor',this[this.selectedIndex].value)">
+            <option value="color">Color</option>
+            <option style="color: black;" value="black">Black</option>
+            <option style="color: red;" value="red">Red</option>
+            <option style="color: blue;" value="blue">Bblue</option>
+            <option style="color: green;" value="green">Green</option>
+            <option style="color: #3b3b3b;" value="pink">Pink</option>
+        </select>
+    </div>
+
+    <iframe id="textEditor" style="width: 500px; height: 170px;" scrolling="no"></iframe>
+    <button>SAVE</button>
+</body>
+</html>
